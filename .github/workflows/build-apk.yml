@@ -1,5 +1,4 @@
-name: Build Android APK
-
+name: Build Web App
 on:
   push:
     branches: [ "main" ]
@@ -12,21 +11,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: Install Builder Tools
+      - name: Prepare Artifact
         run: |
-          npm install -g @bubblewrap/cli
+          mkdir -p dist
+          cp index.html dist/index.html
 
-      - name: Build Web to APK
-        run: |
-          echo "Preparando empaquetado de la PWA..."
-
-      - name: Upload APK Artifact
+      - name: Upload Web Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: Barrio3D-App
-          path: ./*.apk
+          name: Bajopoly-Web-Bundle
+          path: dist/
